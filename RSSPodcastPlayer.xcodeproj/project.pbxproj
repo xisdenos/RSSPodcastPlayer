@@ -106,6 +106,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0656F4DB2D04FF3300B2EC3B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				06F614DC2D04D2C700D12444 /* RSSPodcastPlayer */,
@@ -195,6 +196,9 @@
 			);
 			mainGroup = 06F614D12D04D2C700D12444;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0656F4D92D04FDA400B2EC3B /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 06F614DB2D04D2C700D12444 /* Products */;
 			projectDirPath = "";
@@ -256,6 +260,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0656F4DB2D04FF3300B2EC3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0656F4DA2D04FF3300B2EC3B /* SwiftLintBuildToolPlugin */;
+		};
 		06F614EC2D04D2C800D12444 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 06F614D92D04D2C700D12444 /* RSSPodcastPlayer */;
@@ -552,6 +560,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0656F4D92D04FDA400B2EC3B /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0656F4DA2D04FF3300B2EC3B /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0656F4D92D04FDA400B2EC3B /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 06F614D22D04D2C700D12444 /* Project object */;
 }
