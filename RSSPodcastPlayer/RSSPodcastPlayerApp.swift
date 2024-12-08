@@ -11,7 +11,7 @@ import SwiftUI
 struct RSSPodcastPlayerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RSSPodcastHomeView()
         }
     }
 }
