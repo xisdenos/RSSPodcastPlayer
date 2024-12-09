@@ -26,7 +26,7 @@ struct RSSPodcastHomeView: View {
                             .cornerRadius(8)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.green, lineWidth: 1))
                         
-                        Button("Vai") {
+                        Button("Load Podcast") {
                             print("apertado")
                         }
                         .fontWeight(.semibold)
