@@ -14,10 +14,15 @@ protocol AnyObjectCacheManagerProtocol {
 
 final class CacheManager: AnyObjectCacheManagerProtocol {
     
+    //MARK: - Private constants
+    
     static let shared = CacheManager()
+    private let cacheManagerValidator = CacheManagerValidator()
     private let fileManager: FileManager
     private let cacheDirectoryURL: URL
     private let cache = NSCache<NSString, AnyObject>()
+    
+    //MARK: - Init
     
     private init?(fileManager: FileManager = .default) {
         self.fileManager = fileManager
@@ -26,8 +31,18 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
         guard let cacheDirectory else { return nil }
         self.cacheDirectoryURL = cacheDirectory.appendingPathComponent("CustomCache", isDirectory: true)
         
-        checkAndCreateIfDirectoryNotExists(url: cacheDirectoryURL)
+        if cacheManagerValidator.checkDirectoryNotExists(url: self.cacheDirectoryURL) {
+            createDirectoryIfNotExists(url: cacheDirectoryURL)
+        }
     }
+    
+    //MARK: - Private funcs
+    
+    private func createDirectoryIfNotExists(url: URL) {
+        try? fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+    }
+    
+    //MARK: - Singleton public funcs
     
     func setAnyObject(_ object: AnyObject, forKey key: String) {
         cache.setObject(object, forKey: NSString(string: key))
@@ -35,20 +50,5 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
     
     func getAnyObject(forKey key: String) -> AnyObject? {
         return cache.object(forKey: NSString(string: key))
-    }
-}
-
-//Todo: create a CacheManagerValidator class to validate this
-
-extension CacheManager {
-    
-    private func checkAndCreateIfDirectoryNotExists(url: URL) {
-        if !fileManager.fileExists(atPath: url.path) {
-            createDirectoryIfNotExists(url: url)
-        }
-    }
-    
-    private func createDirectoryIfNotExists(url: URL) {
-        try? fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     }
 }
