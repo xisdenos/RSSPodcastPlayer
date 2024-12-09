@@ -17,6 +17,7 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
     static let shared = CacheManager()
     private let fileManager: FileManager
     private let cacheDirectoryURL: URL
+    private let cache = NSCache<NSString, AnyObject>()
     
     private init?(fileManager: FileManager = .default) {
         self.fileManager = fileManager
@@ -28,13 +29,12 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
         checkAndCreateIfDirectoryNotExists(url: cacheDirectoryURL)
     }
     
-    
     func setAnyObject(_ object: AnyObject, forKey key: String) {
-        <#code#>
+        cache.setObject(object, forKey: NSString(string: key))
     }
     
     func getAnyObject(forKey key: String) -> AnyObject? {
-        <#code#>
+        return cache.object(forKey: NSString(string: key))
     }
 }
 
