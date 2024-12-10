@@ -8,23 +8,29 @@
 import Foundation
 
 struct Podcast: Decodable {
-    var title: String
-    var language: String
-    var copyright: String
-    var description: String
-    var author: String?
-    var explicit: Bool
-    var imageURL: String?
-    var episodes: [Episode]
-    
+    let title: String
+    let description: String
+    let image: RSSImage
+    let episodes: [Episode]
+
     enum CodingKeys: String, CodingKey {
+        case channel
+    }
+
+    enum ChannelKeys: String, CodingKey {
         case title
-        case language
-        case copyright
+        case image
         case description
-        case author = "itunes:author"
-        case explicit = "itunes:explicit"
-        case imageURL = "itunes:image"
         case episodes = "item"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let channel = try container.nestedContainer(keyedBy: ChannelKeys.self, forKey: .channel)
+
+        self.title = try channel.decode(String.self, forKey: .title)
+        self.description = try channel.decode(String.self, forKey: .description)
+        self.image = try channel.decode(RSSImage.self, forKey: .image)
+        self.episodes = try channel.decode([Episode].self, forKey: .episodes)
     }
 }

@@ -15,9 +15,11 @@ protocol RSSPodcastUseCaseProtocol {
 class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
     
     private let networkManager: GetUrlRequestManagerProtocol
+    private let decoder: XMLParserAdapterProtocol
     
-    init(networkManager: GetUrlRequestManagerProtocol) {
+    init(networkManager: GetUrlRequestManagerProtocol, decoder: XMLParserAdapterProtocol) {
         self.networkManager = networkManager
+        self.decoder = decoder
     }
     
     func execute(url: URL, success: @escaping Success, failure: @escaping Failure) {
@@ -25,7 +27,14 @@ class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
         networkManager.getUrlData(with: request) { result in
             switch result {
             case .success(let data):
-                print(data)
+                self.decoder.decodeXMLData(data: data, type: Podcast.self) { result in
+                    switch result {
+                    case .success(let podcast):
+                        success(podcast)
+                    case .failure(let error):
+                        failure(error)
+                    }
+                }
             case .failure(let error):
                 print(error)
             }
