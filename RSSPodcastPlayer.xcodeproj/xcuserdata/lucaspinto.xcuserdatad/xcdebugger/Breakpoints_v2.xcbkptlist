@@ -14,8 +14,8 @@
             filePath = "RSSPodcastPlayer/Feature/RSSPodcastHome/RSSPodcastHomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "loadParsedPodcast()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,9 +30,9 @@
             filePath = "RSSPodcastPlayer/Feature/RSSPodcastHome/RSSPodcastHomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "init(rssPodcastUseCase:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "init(rssPodcastUseCase:userDefaultsManager:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
