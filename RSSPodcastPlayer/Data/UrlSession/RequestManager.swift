@@ -16,12 +16,7 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
     
     func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, Error>) -> Void) {
         
-        guard let url = URL(string: request.endpointURL) else {
-            completion(.failure(NetworkError.invalidURL))
-            return
-        }
-        
-        var urlRequest: URLRequest = URLRequest(url: url)
+        var urlRequest: URLRequest = URLRequest(url: request.endpointURL)
         urlRequest.httpMethod = request.method.rawValue.uppercased()
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
@@ -58,9 +53,6 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
             }
             
             completion(.success(data))
-                
         }.resume()
     }
-    
-    
 }

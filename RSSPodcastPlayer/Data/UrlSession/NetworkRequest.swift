@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkRequest {
-    var endpointURL: String
+    var endpointURL: URL
     var method: HTTPMethod
 }
 

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RSSPodcastHomeView: View {
+    
+    @StateObject var viewModel = RSSPodcastHomeViewModel()
+    
     var body: some View {
-        
-        @State var searchText: String = ""
-        
         ZStack {
             ScrollView {
                 VStack {
@@ -20,7 +20,7 @@ struct RSSPodcastHomeView: View {
                         .padding()
 
                     VStack(spacing: 20) {
-                        TextField("Search your Podcast", text: $searchText)
+                        TextField("Search your Podcast", text: $viewModel.url)
                             .padding()
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(8)
