@@ -7,10 +7,24 @@
 
 import Foundation
 
-struct Podcast: Codable {
+struct Podcast: Decodable {
+    var title: String
+    var language: String
+    var copyright: String
+    var description: String
+    var author: String?
+    var explicit: Bool
+    var imageURL: String?
+    var episodes: [Episode]
     
-    let title: String
-    let description: String
-    let imageURL: String
-    let link: String
+    enum CodingKeys: String, CodingKey {
+        case title
+        case language
+        case copyright
+        case description
+        case author = "itunes:author"
+        case explicit = "itunes:explicit"
+        case imageURL = "itunes:image"
+        case episodes = "item"
+    }
 }

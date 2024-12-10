@@ -14,7 +14,7 @@ protocol AnyObjectCacheManagerProtocol {
 
 final class CacheManager: AnyObjectCacheManagerProtocol {
     
-    //MARK: - Private constants
+    // MARK: - Private constants
     
     static let shared = CacheManager()
     private let cacheManagerValidator = CacheManagerValidator()
@@ -22,7 +22,7 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
     private let cacheDirectoryURL: URL
     private let cache = NSCache<NSString, AnyObject>()
     
-    //MARK: - Init
+    // MARK: - Init
     
     private init?(fileManager: FileManager = .default) {
         self.fileManager = fileManager
@@ -36,13 +36,13 @@ final class CacheManager: AnyObjectCacheManagerProtocol {
         }
     }
     
-    //MARK: - Private funcs
+    // MARK: - Private funcs
     
     private func createDirectoryIfNotExists(url: URL) {
         try? fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     }
     
-    //MARK: - Singleton public funcs
+    // MARK: - Singleton public funcs
     
     func setAnyObject(_ object: AnyObject, forKey key: String) {
         cache.setObject(object, forKey: NSString(string: key))
