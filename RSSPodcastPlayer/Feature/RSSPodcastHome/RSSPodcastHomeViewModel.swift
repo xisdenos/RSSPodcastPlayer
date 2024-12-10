@@ -14,13 +14,15 @@ class RSSPodcastHomeViewModel: ObservableObject {
     
     init(rssPodcastUseCase: RSSPodcastUseCaseProtocol = RSSPodcastUseCase(networkManager: NetworkManager(), decoder: XMLCoderAdapter())) {
         self.rssPodcastUseCase = rssPodcastUseCase
-        loadData()
+        loadParsedPodcast()
     }
     
-    func loadData() {
-        guard let urlPath =  URL(string: "https://feeds.megaphone.fm/la-cotorrisa") else { return }
+    func save
+    
+    func loadParsedPodcast() {
+        guard let urlPath = URL(string: url) else { return }
         rssPodcastUseCase.execute(url: urlPath) { podcast in
-            print(podcast)
+            print(podcast.title)
         } failure: { error in
             print(error)
         }

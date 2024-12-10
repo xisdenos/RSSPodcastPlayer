@@ -36,7 +36,7 @@ class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
                     }
                 }
             case .failure(let error):
-                print(error)
+                failure(error)
             }
         }
     }
