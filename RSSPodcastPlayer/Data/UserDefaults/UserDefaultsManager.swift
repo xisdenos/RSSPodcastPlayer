@@ -10,9 +10,11 @@ import Foundation
 protocol UrlLoaderUserDefaultProtocol {
     func savePodcastUrl(url: URL, key: String)
     func retrievePodcastUrls(key: String) -> [String]
+    func clearPodcastUrls(key: String)
 }
 
 class UserDefaultsManager: UrlLoaderUserDefaultProtocol {
+    
     private var userDefaults = UserDefaults.standard
     
     func savePodcastUrl(url: URL, key: String) {
@@ -32,7 +34,10 @@ class UserDefaultsManager: UrlLoaderUserDefaultProtocol {
     }
     
     func retrievePodcastUrls(key: String) -> [String] {
-        let defaults = UserDefaults.standard
-        return defaults.stringArray(forKey: key) ?? []
+        return userDefaults.stringArray(forKey: key) ?? []
+    }
+    
+    func clearPodcastUrls(key: String) {
+        userDefaults.removeObject(forKey: key)
     }
 }
