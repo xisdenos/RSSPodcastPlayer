@@ -32,8 +32,11 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
             
             switch response.statusCode {
             case 200...299:
-                print("passou pelo 200-299")
-                break
+                guard let data = data else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                completion(.success(data))
             case 401:
                 completion(.failure(NetworkError.unauthorizedConnection))
             case 403:
@@ -46,13 +49,6 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
                 completion(.failure(NetworkError.unknownError))
             
             }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            completion(.success(data))
         }.resume()
     }
 }
