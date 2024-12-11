@@ -18,13 +18,18 @@ struct RSSPodcastHomeView: View {
                     VStack {
                         Text("RSS Podcast Player")
                             .font(.largeTitle)
+                            .foregroundColor(Color.accentColor)
                             .padding()
                         
                         HStack {
                             searchBar
                             searchButton
                         }
-                        .padding()
+                        .padding(.horizontal)
+                        
+                        if !viewModel.urlStringList.isEmpty {
+                            HistoryView(viewModel: viewModel)
+                        }
                         
                         if viewModel.isLoading {
                             ProgressView()
@@ -34,18 +39,11 @@ struct RSSPodcastHomeView: View {
                         
                         LoadedPodcastView(podcast: $viewModel.podCast)
                         
-                        if !viewModel.urlStringList.isEmpty {
-                            HistoryView(viewModel: viewModel)
-                            
-                            CustomButton(buttonText: "Apagar Historico", foregroundColor: Color.red) {
-                                viewModel.clearSavedURls()
-                            }
-                        }
                     }
                     .padding()
                 }
             }
-            .background(Color.blue)
+            .background(Color.primaryBlue)
             
             // MARK: - Alert
             
@@ -68,8 +66,9 @@ struct RSSPodcastHomeView: View {
 extension RSSPodcastHomeView {
     private var searchBar: some View {
         TextField("Search your Podcast", text: $viewModel.url)
+            .foregroundColor(.black)
             .padding()
-            .background(Color.gray.opacity(0.3))
+            .background(Color.gray.opacity(0.8))
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.green, lineWidth: 1))
             .overlay(alignment: .trailing) {  // Align the button to the trailing edge
@@ -78,7 +77,7 @@ extension RSSPodcastHomeView {
                         viewModel.url = ""  // Clears the text field
                     }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.gray)
+                            .foregroundColor(.accentColor)
                     }
                     .padding(.trailing, 8) // Add padding to avoid overlapping
                 }
