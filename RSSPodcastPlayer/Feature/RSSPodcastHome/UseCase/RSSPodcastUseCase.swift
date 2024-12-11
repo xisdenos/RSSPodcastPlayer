@@ -14,13 +14,19 @@ protocol RSSPodcastUseCaseProtocol {
 
 class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
     
+    // MARK: - Private variables
+    
     private let networkManager: GetUrlRequestManagerProtocol
     private let decoder: XMLParserAdapterProtocol
+    
+    // MARK: - Init
     
     init(networkManager: GetUrlRequestManagerProtocol, decoder: XMLParserAdapterProtocol) {
         self.networkManager = networkManager
         self.decoder = decoder
     }
+    
+    // MARK: - Public funcs
     
     func execute(url: URL, success: @escaping Success, failure: @escaping Failure) {
         let request = NetworkRequest(endpointURL: url, method: HTTPMethod.get)

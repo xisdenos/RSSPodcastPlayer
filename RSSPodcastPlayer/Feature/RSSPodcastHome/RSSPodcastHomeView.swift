@@ -40,15 +40,14 @@ struct RSSPodcastHomeView: View {
                             viewModel.clearSavedURls()
                         }
                     }
-                    
-//                    if let errorMessage = viewModel.errorMessage {
-//                        GenericErrorAlert(errorMessage: errorMessage)
-//                    }
                 }
                 .padding()
             }
         }
         .background(Color.blue)
+        
+        // MARK: - Alert
+        
         .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
             Alert(
                 title: Text("Error"),
@@ -61,6 +60,8 @@ struct RSSPodcastHomeView: View {
 
     }
 }
+
+// MARK: - Private components
 
 extension RSSPodcastHomeView {
     private var searchBar: some View {

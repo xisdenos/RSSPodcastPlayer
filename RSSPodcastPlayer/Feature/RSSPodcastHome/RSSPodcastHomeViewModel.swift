@@ -9,6 +9,8 @@ import SwiftUI
 
 class RSSPodcastHomeViewModel: ObservableObject {
     
+    // MARK: - public vars
+    
     @Published var url: String = ""
     @Published var urlStringList: [String] = []
     @Published var showHistory = false
@@ -16,8 +18,12 @@ class RSSPodcastHomeViewModel: ObservableObject {
     @Published var podCast: Podcast?
     @Published var errorMessage: String?
     
+    // MARK: - Dependencies
+    
     let rssPodcastUseCase: RSSPodcastUseCaseProtocol
     let userDefaultsManager: UrlLoaderUserDefaultProtocol
+    
+    // MARK: - Init
     
     init(rssPodcastUseCase: RSSPodcastUseCaseProtocol = RSSPodcastUseCase(networkManager: NetworkManager(), decoder: XMLCoderAdapter()),
          userDefaultsManager: UrlLoaderUserDefaultProtocol) {
@@ -26,9 +32,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
         retrieveSavedUrls()
     }
     
-    func clearErrorMessage() {
-        errorMessage = nil
-    }
+    // MARK: - Public funcs
     
     func checkShowHistory() -> Bool {
         return showHistory && !urlStringList.isEmpty

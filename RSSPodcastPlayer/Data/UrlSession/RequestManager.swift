@@ -11,7 +11,6 @@ protocol GetUrlRequestManagerProtocol {
     func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
 
-// MARK: - Network mannager class
 final class NetworkManager: GetUrlRequestManagerProtocol {
     
     func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
@@ -29,6 +28,8 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
                 completion(.failure(NetworkError.invalidStatusCode))
                 return
             }
+            
+            // MARK: - status code error handler
             
             switch response.statusCode {
             case 200...299:
