@@ -18,11 +18,12 @@ struct RSSPodcastHomeView: View {
                     Text("RSS Podcast Player")
                         .font(.largeTitle)
                         .padding()
-
-                    searchBar
-                    CustomButton(buttonText: "Load Podcast", foregroundColor: Color.green) {
-                        viewModel.loadParsedPodcast()
+                    
+                    HStack {
+                        searchBar
+                        searchButton
                     }
+                    .padding()
                     
                     if viewModel.isLoading {
                         ProgressView()
@@ -30,7 +31,7 @@ struct RSSPodcastHomeView: View {
                             .padding()
                     }
                     
-                    LoadedPodcastView(viewModel: viewModel)
+                    LoadedPodcastView(podcast: $viewModel.podCast)
                     
                     if !viewModel.urlStringList.isEmpty {
                         HistoryView(viewModel: viewModel)
@@ -40,28 +41,68 @@ struct RSSPodcastHomeView: View {
                         }
                     }
                     
-                    // Display error message if any
-//                    if let errorMessage = viewModel.$errorMessage {
-//                        Text(errorMessage)
-//                            .foregroundColor(.red)
-//                            .font(.subheadline)
-//                            .padding()
+//                    if let errorMessage = viewModel.errorMessage {
+//                        GenericErrorAlert(errorMessage: errorMessage)
 //                    }
                 }
                 .padding()
             }
-        }.background(Color.blue)
+        }
+        .background(Color.blue)
+        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.errorMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.errorMessage = nil
+                }
+            )
+        }
+
     }
-    
+}
+
+extension RSSPodcastHomeView {
     private var searchBar: some View {
         TextField("Search your Podcast", text: $viewModel.url)
             .padding()
             .background(Color.gray.opacity(0.3))
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.green, lineWidth: 1))
+            .overlay(alignment: .trailing) {  // Align the button to the trailing edge
+                if !viewModel.url.isEmpty {
+                    Button(action: {
+                        viewModel.url = ""  // Clears the text field
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.trailing, 8) // Add padding to avoid overlapping
+                }
+            }
+            .animation(.easeInOut(duration: 0.3), value: viewModel.url)
+            .autocapitalization(.none)
+            .keyboardType(.webSearch)
+    }
+    
+    private var searchButton: some View {
+        Button(action: {
+                   viewModel.loadParsedPodcast()
+               }) {
+                   Image(systemName: "magnifyingglass")
+                       .resizable()
+                       .scaledToFit()
+                       .frame(width: 20, height: 20)
+                       .foregroundColor(.gray) // Change color as needed
+               }
+               .buttonStyle(PlainButtonStyle())
+               .padding()
+               .background(Color.white)
+               .clipShape(.buttonBorder)
+               .shadow(radius: 5)
+               .buttonStyle(PlainButtonStyle())
     }
 }
-
 #Preview {
     RSSPodcastHomeView()
 }

@@ -15,19 +15,20 @@ enum NetworkError: Error {
     case badRequest
     case unauthorizedConnection
     case forbiddenRequest
+    case unsupportedURL
     case unknownError
 }
 
 extension NetworkError: LocalizedError {
     
-    var description: String? {
+    var description: String {
         switch self {
         case .invalidURL:
             return "Invalid URL"
         case .noData:
             return "Data error"
         case .invalidStatusCode:
-            return "Unknow status code"
+            return "Unknow server error status code"
         case .networkError:
             return "cannot establish network connection"
         case .badRequest:
@@ -36,6 +37,8 @@ extension NetworkError: LocalizedError {
             return "Server not authorizing"
         case .forbiddenRequest:
             return "Forbidden request"
+        case .unsupportedURL:
+            return "Unsuppported URL"
         case .unknownError:
             return "Unknown error"
         }

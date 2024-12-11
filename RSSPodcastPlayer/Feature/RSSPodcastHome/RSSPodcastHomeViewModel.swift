@@ -14,6 +14,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
     @Published var showHistory = false
     @Published var isLoading = false
     @Published var podCast: Podcast?
+    @Published var errorMessage: String?
     
     let rssPodcastUseCase: RSSPodcastUseCaseProtocol
     let userDefaultsManager: UrlLoaderUserDefaultProtocol
@@ -23,6 +24,10 @@ class RSSPodcastHomeViewModel: ObservableObject {
         self.rssPodcastUseCase = rssPodcastUseCase
         self.userDefaultsManager = userDefaultsManager
         retrieveSavedUrls()
+    }
+    
+    func clearErrorMessage() {
+        errorMessage = nil
     }
     
     func checkShowHistory() -> Bool {
@@ -43,19 +48,16 @@ class RSSPodcastHomeViewModel: ObservableObject {
         guard let urlPath = URL(string: url) else { return }
         rssPodcastUseCase.execute(url: urlPath) { podcast in
             self.userDefaultsManager.savePodcastUrl(url: urlPath, key: "SavedUrls")
-//            guard let podcast = self.podCast else { return }
             DispatchQueue.main.async {
                 self.isLoading = false
                 self.podCast = podcast
                 self.retrieveSavedUrls()
             }
-            print(podcast.title)
-            print(self.userDefaultsManager.retrievePodcastUrls(key: "SavedUrls"))
         } failure: { error in
             DispatchQueue.main.async {
                 self.isLoading = false
+                self.errorMessage = error
             }
-            print(error)
         }
 
     }

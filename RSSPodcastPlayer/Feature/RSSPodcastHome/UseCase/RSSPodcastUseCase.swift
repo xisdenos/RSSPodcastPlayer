@@ -8,7 +8,7 @@ import Foundation
 
 protocol RSSPodcastUseCaseProtocol {
     typealias Success = ((Podcast) -> Void)
-    typealias Failure = ((Error) -> Void)
+    typealias Failure = ((String) -> Void)
     func execute(url: URL, success: @escaping Success, failure: @escaping Failure)
 }
 
@@ -32,11 +32,11 @@ class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
                     case .success(let podcast):
                         success(podcast)
                     case .failure(let error):
-                        failure(error)
+                        failure(error.localizedDescription)
                     }
                 }
             case .failure(let error):
-                failure(error)
+                failure(error.description)
             }
         }
     }
