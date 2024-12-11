@@ -8,19 +8,25 @@ import Foundation
 
 protocol RSSPodcastUseCaseProtocol {
     typealias Success = ((Podcast) -> Void)
-    typealias Failure = ((Error) -> Void)
+    typealias Failure = ((String) -> Void)
     func execute(url: URL, success: @escaping Success, failure: @escaping Failure)
 }
 
 class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
     
+    // MARK: - Private variables
+    
     private let networkManager: GetUrlRequestManagerProtocol
     private let decoder: XMLParserAdapterProtocol
+    
+    // MARK: - Init
     
     init(networkManager: GetUrlRequestManagerProtocol, decoder: XMLParserAdapterProtocol) {
         self.networkManager = networkManager
         self.decoder = decoder
     }
+    
+    // MARK: - Public funcs
     
     func execute(url: URL, success: @escaping Success, failure: @escaping Failure) {
         let request = NetworkRequest(endpointURL: url, method: HTTPMethod.get)
@@ -32,11 +38,11 @@ class RSSPodcastUseCase: RSSPodcastUseCaseProtocol {
                     case .success(let podcast):
                         success(podcast)
                     case .failure(let error):
-                        failure(error)
+                        failure(error.localizedDescription)
                     }
                 }
             case .failure(let error):
-                failure(error)
+                failure(error.description)
             }
         }
     }

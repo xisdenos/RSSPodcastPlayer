@@ -9,11 +9,11 @@ import SwiftUI
 
 struct LoadedPodcastView: View {
     
-    @ObservedObject var viewModel: RSSPodcastHomeViewModel
+    @Binding var podcast: Podcast?
     
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
-            if let podcast = viewModel.podCast {
+            if let podcast = podcast {
                 VStack {
                     Text(podcast.title)
                         .font(.title2)
@@ -21,8 +21,7 @@ struct LoadedPodcastView: View {
                         .foregroundColor(.white)
                         .padding(.top)
                     
-                    //TODO: empty placeholder image
-                    getImage(url: podcast.image.url.stringToURL())
+                    AsyncImageGetter(url: podcast.image.url.stringToURL())
                     
                     Text(podcast.description)
                         .font(.subheadline)
@@ -30,7 +29,7 @@ struct LoadedPodcastView: View {
                         .foregroundColor(.white)
                         .padding(.top)
                     
-                    NavigationLink(destination: Text("Next Screen")) {
+                    NavigationLink(destination: RSSEpisodeListView(podcast: podcast)) {
                         Text("Episodios")
                             .padding()
                             .background(Color.green)
@@ -51,7 +50,7 @@ struct LoadedPodcastView: View {
         AsyncImage(url: url) { image in
             switch image {
             case .empty:
-                ProgressView()
+                EmptyView()
             case .success(let image):
                 image.resizable()
                     .scaledToFit()

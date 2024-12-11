@@ -8,13 +8,12 @@
 import Foundation
 
 protocol GetUrlRequestManagerProtocol {
-    func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, Error>) -> Void)
+    func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
 
-// MARK: - Network mannager class
 final class NetworkManager: GetUrlRequestManagerProtocol {
     
-    func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+    func getUrlData(with request: NetworkRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         
         var urlRequest: URLRequest = URLRequest(url: request.endpointURL)
         urlRequest.httpMethod = request.method.rawValue.uppercased()
@@ -22,7 +21,7 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(NetworkError.unknownError))
             }
             
             guard let response = response as? HTTPURLResponse else {
@@ -30,10 +29,15 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
                 return
             }
             
+            // MARK: - status code error handler
+            
             switch response.statusCode {
             case 200...299:
-                print("passou pelo 200-299")
-                break
+                guard let data = data else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                completion(.success(data))
             case 401:
                 completion(.failure(NetworkError.unauthorizedConnection))
             case 403:
@@ -42,17 +46,12 @@ final class NetworkManager: GetUrlRequestManagerProtocol {
                 completion(.failure(NetworkError.badRequest))
             case 500...599:
                 completion(.failure(NetworkError.networkError))
+            case -1002:
+                completion(.failure(NetworkError.unsupportedURL))
             default:
                 completion(.failure(NetworkError.unknownError))
             
             }
-            
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
-            
-            completion(.success(data))
         }.resume()
     }
 }
