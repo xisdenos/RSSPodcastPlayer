@@ -39,4 +39,18 @@ struct Podcast: Decodable, Identifiable {
         self.image = try channel.decode(RSSImage.self, forKey: .image)
         self.episodes = try channel.decode([Episode].self, forKey: .episodes)
     }
+    
+    init(id: UUID = UUID(),
+             title: String,
+             description: String,
+             author: String,
+             image: RSSImage,
+             episodes: [Episode]) {
+            self.id = id
+            self.title = title
+            self.description = description
+            self.author = author
+            self.image = image
+            self.episodes = episodes
+        }
 }
