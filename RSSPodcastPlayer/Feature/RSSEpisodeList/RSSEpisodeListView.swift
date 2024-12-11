@@ -17,6 +17,7 @@ struct RSSEpisodeListView: View {
                 VStack {
                     Text(podcast.title)
                         .font(.largeTitle)
+                        .foregroundColor(.green)
                         .padding()
                     
                     AsyncImageGetter(url: podcast.image.url.stringToURL())
@@ -27,12 +28,16 @@ struct RSSEpisodeListView: View {
                         .foregroundColor(.white)
                         .padding()
                     
-                    Text("Author" + ": ")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                    Text(podcast.title)
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
+                    HStack {
+                        Text("Author" + ": ")
+                            .font(.title3)
+                            .foregroundColor(.green)
+                        Text(podcast.author)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }.background(Color.blue)

@@ -10,6 +10,7 @@ import Foundation
 struct Podcast: Decodable {
     let title: String
     let description: String
+    let author: String
     let image: RSSImage
     let episodes: [Episode]
 
@@ -19,6 +20,7 @@ struct Podcast: Decodable {
 
     enum ChannelKeys: String, CodingKey {
         case title
+        case author = "itunes:author"
         case image
         case description
         case episodes = "item"
@@ -30,6 +32,7 @@ struct Podcast: Decodable {
 
         self.title = try channel.decode(String.self, forKey: .title)
         self.description = try channel.decode(String.self, forKey: .description)
+        self.author = try channel.decode(String.self, forKey: .author)
         self.image = try channel.decode(RSSImage.self, forKey: .image)
         self.episodes = try channel.decode([Episode].self, forKey: .episodes)
     }
