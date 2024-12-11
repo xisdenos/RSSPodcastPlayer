@@ -9,55 +9,57 @@ import SwiftUI
 
 struct RSSPodcastHomeView: View {
     
-    @StateObject var viewModel = RSSPodcastHomeViewModel(userDefaultsManager: UserDefaultsManager())
+    @StateObject var viewModel = RSSHomeViewModelFactory.build()
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                VStack {
-                    Text("RSS Podcast Player")
-                        .font(.largeTitle)
-                        .padding()
-                    
-                    HStack {
-                        searchBar
-                        searchButton
-                    }
-                    .padding()
-                    
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .green))
+        NavigationView {
+            ZStack {
+                ScrollView {
+                    VStack {
+                        Text("RSS Podcast Player")
+                            .font(.largeTitle)
                             .padding()
-                    }
-                    
-                    LoadedPodcastView(podcast: $viewModel.podCast)
-                    
-                    if !viewModel.urlStringList.isEmpty {
-                        HistoryView(viewModel: viewModel)
                         
-                        CustomButton(buttonText: "Apagar Historico", foregroundColor: Color.red) {
-                            viewModel.clearSavedURls()
+                        HStack {
+                            searchBar
+                            searchButton
+                        }
+                        .padding()
+                        
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .green))
+                                .padding()
+                        }
+                        
+                        LoadedPodcastView(podcast: $viewModel.podCast)
+                        
+                        if !viewModel.urlStringList.isEmpty {
+                            HistoryView(viewModel: viewModel)
+                            
+                            CustomButton(buttonText: "Apagar Historico", foregroundColor: Color.red) {
+                                viewModel.clearSavedURls()
+                            }
                         }
                     }
+                    .padding()
                 }
-                .padding()
+            }
+            .background(Color.blue)
+            
+            // MARK: - Alert
+            
+            .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(viewModel.errorMessage ?? ""),
+                    dismissButton: .default(Text("OK")) {
+                        viewModel.errorMessage = nil
+                    }
+                )
             }
         }
-        .background(Color.blue)
-        
-        // MARK: - Alert
-        
-        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
-            Alert(
-                title: Text("Error"),
-                message: Text(viewModel.errorMessage ?? ""),
-                dismissButton: .default(Text("OK")) {
-                    viewModel.errorMessage = nil
-                }
-            )
-        }
-
+        .navigationBarHidden(true)
     }
 }
 

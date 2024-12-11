@@ -25,7 +25,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
     
     // MARK: - Init
     
-    init(rssPodcastUseCase: RSSPodcastUseCaseProtocol = RSSPodcastUseCase(networkManager: NetworkManager(), decoder: XMLCoderAdapter()),
+    init(rssPodcastUseCase: RSSPodcastUseCaseProtocol,
          userDefaultsManager: UrlLoaderUserDefaultProtocol) {
         self.rssPodcastUseCase = rssPodcastUseCase
         self.userDefaultsManager = userDefaultsManager
