@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Podcast: Decodable {
+struct Podcast: Decodable, Identifiable {
+    let id: UUID
     let title: String
     let description: String
     let author: String
@@ -19,6 +20,7 @@ struct Podcast: Decodable {
     }
 
     enum ChannelKeys: String, CodingKey {
+        case id
         case title
         case author = "itunes:author"
         case image
@@ -30,6 +32,7 @@ struct Podcast: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let channel = try container.nestedContainer(keyedBy: ChannelKeys.self, forKey: .channel)
 
+        self.id = UUID()
         self.title = try channel.decode(String.self, forKey: .title)
         self.description = try channel.decode(String.self, forKey: .description)
         self.author = try channel.decode(String.self, forKey: .author)
