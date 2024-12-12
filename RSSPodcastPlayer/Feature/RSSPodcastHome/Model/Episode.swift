@@ -8,7 +8,8 @@
 import Foundation
 
 struct Episode: Decodable, Identifiable {
-    var id: UUID // Conforms to Identifiable
+    
+    var id: UUID
     let title: String
     let description: String
     let pubDate: Date
@@ -45,5 +46,13 @@ struct Episode: Decodable, Identifiable {
             self.pubDate = pubDate
             self.enclosure = enclosure
             self.duration = duration
+        }
+}
+
+extension Episode: Equatable {
+    
+    static func == (lhs: Episode, rhs: Episode) -> Bool {
+            return lhs.id == rhs.id &&
+                   lhs.title == rhs.title
         }
 }
