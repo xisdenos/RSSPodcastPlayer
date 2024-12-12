@@ -15,8 +15,8 @@ class RSSPlayerViewModel: ObservableObject {
     @Published var audioPlayer: AudioPlayer
     @Published var podcast: Podcast
     @Published var episode: Episode
-    @Published var isPaused: Bool = false
-    @Published var currentTime: TimeInterval?
+    @Published var isPaused: Bool = true
+    @Published var currentTime: Double = 0
     @Published var audioErrorFeedbackMessage: String?
     
     init(podcast: Podcast, episode: Episode) {

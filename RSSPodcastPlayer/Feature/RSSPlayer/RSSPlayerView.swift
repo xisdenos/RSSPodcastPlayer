@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import Observation
 
 struct RSSPlayerView: View {
     
-    var podcast: Podcast
-    var episode: Episode
+    @StateObject var viewModel: RSSPlayerViewModel
     
     var body: some View {
-        Text(episode.title)
+        VStack {
+            Text(viewModel.episode.title)
+            
+            AudioPlayerBox(viewModel: viewModel)
+        }.onAppear {
+            viewModel.play()
+        }
+        .onDisappear {
+            viewModel.removeAudio()
+        }
     }
 }

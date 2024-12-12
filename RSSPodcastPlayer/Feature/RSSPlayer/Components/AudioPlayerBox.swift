@@ -11,14 +11,13 @@ import Observation
 struct AudioPlayerBox: View {
     
     @ObservedObject var viewModel: RSSPlayerViewModel
-    @State private var currentTime = 0.0
-    @State private var totalTime = 0.0
     
     var body: some View {
         VStack {
             
-            // change to viewModel.audio.currentTime
-            Slider(value: $currentTime, in: 0...totalTime)
+            if let totalTime = viewModel.episode.duration.toDouble() {
+                Slider(value: $viewModel.currentTime, in: 0...totalTime)
+            }
             
             HStack {
                 Button(action: viewModel.returnAudio) {
@@ -36,6 +35,9 @@ struct AudioPlayerBox: View {
                     Image(systemName: "forward.fill")
                 }
             }
+        }
+        .onDisappear {
+
         }
     }
 }

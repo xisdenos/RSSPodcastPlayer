@@ -7,63 +7,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "98FEEDA1-F679-4A84-A2C3-E790789BAE9F"
-            shouldBeEnabled = "No"
+            uuid = "C4049F04-1FE4-4842-BA35-9AA918361E8E"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RSSPodcastPlayer/Data/UrlSession/RequestManager.swift"
+            filePath = "RSSPodcastPlayer/Feature/RSSPlayer/AudioPlayer/AudioPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "getUrlData(with:completion:)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "pause()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FF811C3C-27FB-410B-B796-DF764DA177A6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RSSPodcastPlayer/Feature/RSSPodcastHome/Components/HistoryView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9"
-            landmarkName = "HistoryView"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "574DA590-348B-44D4-878A-584C61CF06D3"
+            uuid = "983A88FE-7DF8-4AF5-8048-F0AA9B1F649A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RSSPodcastPlayer/Feature/RSSPodcastHome/UseCase/RSSPodcastUseCase.swift"
+            filePath = "RSSPodcastPlayer/Feature/RSSPlayer/AudioPlayer/AudioPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "execute(url:success:failure:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "pause()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4504EB64-54DF-44DF-BB93-2FEACDAFE1D3"
+            uuid = "74A41003-F25A-429C-8AD4-CD45074A8BE4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RSSPodcastPlayer/Feature/RSSPodcastHome/Components/LoadedPodcastView.swift"
+            filePath = "RSSPodcastPlayer/Feature/RSSPlayer/Components/AudioPlayerBox.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

@@ -71,15 +71,15 @@ extension RSSPodcastHomeView {
             .background(Color.gray.opacity(0.8))
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.green, lineWidth: 1))
-            .overlay(alignment: .trailing) {  // Align the button to the trailing edge
+            .overlay(alignment: .trailing) {
                 if !viewModel.url.isEmpty {
                     Button(action: {
-                        viewModel.url = ""  // Clears the text field
+                        viewModel.url = ""
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.accentColor)
                     }
-                    .padding(.trailing, 8) // Add padding to avoid overlapping
+                    .padding(.trailing, 8)
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.url)
@@ -95,7 +95,7 @@ extension RSSPodcastHomeView {
                        .resizable()
                        .scaledToFit()
                        .frame(width: 20, height: 20)
-                       .foregroundColor(.gray) // Change color as needed
+                       .foregroundColor(.gray)
                }
                .buttonStyle(PlainButtonStyle())
                .padding()

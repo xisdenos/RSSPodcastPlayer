@@ -25,8 +25,8 @@ class AudioPlayer: NSObject, AudioPlayerProtocol, ObservableObject {
     
     // MARK: Public variables
     
-    @Published var currentTime: TimeInterval = 0
-    @Published var isPaused: Bool = false
+    @Published var currentTime: Double = 0
+    @Published var isPaused: Bool = true
     
     // MARK: Init
 
