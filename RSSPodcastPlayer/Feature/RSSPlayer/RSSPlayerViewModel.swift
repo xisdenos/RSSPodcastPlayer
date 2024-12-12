@@ -83,4 +83,8 @@ class RSSPlayerViewModel: ObservableObject {
         episode = podcast.episodes[previousIndex]
         audioPlayer.changeAudio(url: episode.enclosure?.url)
     }
+    
+    func updateAudioTimeWithSliderBarValue(value: Double) {
+        audioPlayer.updateAudioTime(currentTime: value)
+    }
 }

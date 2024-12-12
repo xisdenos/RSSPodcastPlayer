@@ -15,9 +15,18 @@ struct RSSPlayerView: View {
     var body: some View {
         VStack {
             Text(viewModel.episode.title)
+                .font(.headline)
+                .foregroundColor(Color.accentColor)
+            ScrollView {
+                Text(viewModel.episode.description.removingHTMLTags())
+                    .foregroundColor(Color.primaryWhite)
+            }
             
             AudioPlayerBox(viewModel: viewModel)
-        }.onAppear {
+        }
+        .padding()
+        .background(Color.primaryBlue)
+        .onAppear {
             viewModel.play()
         }
         .onDisappear {

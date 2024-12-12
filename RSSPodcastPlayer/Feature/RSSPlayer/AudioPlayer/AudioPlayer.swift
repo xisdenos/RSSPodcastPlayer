@@ -13,10 +13,11 @@ protocol AudioPlayerProtocol {
     func play(url: URL?)
     func changeAudio(url: URL?)
     func pause()
+    func updateAudioTime(currentTime: Double)
 }
 
 class AudioPlayer: NSObject, AudioPlayerProtocol, ObservableObject {
-    
+
     // MARK: Private variables
     
     private var player: AVPlayer
@@ -93,12 +94,8 @@ class AudioPlayer: NSObject, AudioPlayerProtocol, ObservableObject {
         removeAVPlayerEntities()
         play(url: url)
     }
+    
+    func updateAudioTime(currentTime: Double) {
+        player.seek(to: CMTime(seconds: currentTime, preferredTimescale: 1))
+    }
 }
-
-//// MARK: Delegate extension
-//
-//extension AudioPlayer: AVAudioPlayerDelegate {
-//    func audioPlayerDidChangePosition(_ player: AVAudioPlayer) {
-//        currentTime = player.currentTime
-//    }
-//}
