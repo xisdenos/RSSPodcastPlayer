@@ -7,6 +7,7 @@
 import Foundation
 
 extension String {
+    
     func stringToURL() -> URL? {
             return URL(string: self)
     }
