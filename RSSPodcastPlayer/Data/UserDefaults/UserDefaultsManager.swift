@@ -11,6 +11,8 @@ protocol UrlLoaderUserDefaultProtocol {
     func savePodcastUrl(url: URL, key: String)
     func retrievePodcastUrls(key: String) -> [String]
     func clearPodcastUrls(key: String)
+    func saveCachedPodcast(key: String, podcast: CachedPodcast)
+    func fetchCachedPodcasts(key: String) -> [CachedPodcast]
 }
 
 class UserDefaultsManager: UrlLoaderUserDefaultProtocol {
@@ -40,4 +42,45 @@ class UserDefaultsManager: UrlLoaderUserDefaultProtocol {
     func clearPodcastUrls(key: String) {
         userDefaults.removeObject(forKey: key)
     }
+}
+
+extension UserDefaultsManager {
+    
+    func saveCachedPodcast(key: String, podcast: CachedPodcast) {
+        do {
+            let data = try JSONEncoder().encode(podcast)
+            userDefaults.set(data, forKey: podcast.url)
+
+            if var urls = userDefaults.stringArray(forKey: key) {
+                if !urls.contains(podcast.url) {
+                    urls.append(podcast.url)
+                    userDefaults.setValue(urls, forKey: key)
+                }
+            } else {
+                userDefaults.setValue([podcast.url], forKey: key)
+            }
+        } catch {
+            print("Failed to encode podcast: \(error)")
+        }
+    }
+    func fetchCachedPodcasts(key: String) -> [CachedPodcast] {
+        var podcasts: [CachedPodcast] = []
+
+        guard let urls = userDefaults.stringArray(forKey: key) else { return [] }
+        
+        urls.forEach { url in
+            if let data = userDefaults.object(forKey: url) as? Data {
+                do {
+                    if let podcast = try? JSONDecoder().decode(CachedPodcast.self, from: data) {
+                        podcasts.append(podcast)
+                    }
+                } catch {
+                    print("Failed to decode podcast for URL \(url): \(error)")
+                }
+            }
+        }
+
+        return podcasts
+    }
+
 }

@@ -19,17 +19,15 @@ struct HistoryView: View {
                 .padding(.top)
             
             VStack(spacing: 4) {
-                ForEach(viewModel.urlStringList, id: \.self) { url in
+                ForEach(viewModel.cachedPodcastList, id: \.self) { cachedPodcast in
                     Button(action: {
-                        viewModel.url = url
+                        viewModel.url = cachedPodcast.url
                         viewModel.loadParsedPodcast()
                     }) {
-                        HStack {
-                            Image(systemName: "link.circle.fill")
-                                .foregroundColor(.red)
-                                .font(.title2)
+                        VStack {
+//                            AsyncImageGetter(url: cachedPodcast.imageUrl.stringToURL())
                             
-                            Text(url)
+                            Text(cachedPodcast.url)
                                 .font(.body)
                                 .lineLimit(1)
                                 .truncationMode(.middle)

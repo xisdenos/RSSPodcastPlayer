@@ -12,15 +12,15 @@ extension String {
         return URL(string: self)
     }
     
-    func stringToSeconds() -> Double? {
+    func stringToDoubleOrSeconds() -> Double? {
         let components = self.split(separator: ":")
-        guard components.count == 3,
-              let hours = Double(components[0]),
-              let minutes = Double(components[1]),
-              let seconds = Double(components[2]) else {
-            return nil
+        if components.count == 3,
+           let hours = Double(components[0]),
+           let minutes = Double(components[1]),
+           let seconds = Double(components[2]) {
+            return (hours * 3600) + (minutes * 60) + seconds
         }
-        return (hours * 3600) + (minutes * 60) + seconds
+        return Double(self)
     }
     
     func removingHTMLTags() -> String {

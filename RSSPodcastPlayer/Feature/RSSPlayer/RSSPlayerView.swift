@@ -14,17 +14,14 @@ struct RSSPlayerView: View {
     
     var body: some View {
         VStack {
-            Text(viewModel.episode.title)
-                .font(.headline)
-                .foregroundColor(Color.accentColor)
-            ScrollView {
-                Text(viewModel.episode.description.removingHTMLTags())
-                    .foregroundColor(Color.primaryWhite)
-            }
+            
+            EpisodeTitleView(title: viewModel.episode.title)
+
+            EpisodeDescriptionView(description: viewModel.episode.description)
             
             AudioPlayerBox(viewModel: viewModel)
+                .frame(maxWidth: .infinity)
         }
-        .padding()
         .background(Color.primaryBlue)
         .onAppear {
             viewModel.play()
@@ -32,5 +29,28 @@ struct RSSPlayerView: View {
         .onDisappear {
             viewModel.removeAudio()
         }
+    }
+}
+
+struct EpisodeTitleView: View {
+    var title: String
+    
+    var body: some View {
+        Text(title)
+            .font(.headline)
+            .foregroundColor(Color.accentColor)
+            .padding()
+    }
+}
+
+struct EpisodeDescriptionView: View {
+    var description: String
+    
+    var body: some View {
+        ScrollView {
+            Text(description.removingHTMLTags())
+                .foregroundColor(Color.primaryWhite)
+        }
+        .padding()
     }
 }

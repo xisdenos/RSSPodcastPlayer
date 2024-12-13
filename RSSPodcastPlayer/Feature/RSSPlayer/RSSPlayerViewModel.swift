@@ -15,6 +15,7 @@ class RSSPlayerViewModel: ObservableObject {
     @Published var audioPlayer: AudioPlayer
     @Published var podcast: Podcast
     @Published var episode: Episode
+    @Published var formattedTotalTime: Double = 0
     @Published var isPaused: Bool = true
     @Published var currentTime: Double = 0
     @Published var audioErrorFeedbackMessage: String?
@@ -36,6 +37,19 @@ class RSSPlayerViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+//    private func currentTimeFormmater() {
+//        if let timeFormatted = episode.duration.stringToSeconds() {
+//            formattedTotalTime = timeFormatted
+//            return
+//        }
+//
+//        if let timeFormatted = podcast.description.stringToDouble() {
+//            formattedTotalTime = timeFormatted
+//            return
+//        }
+//        print(formattedTotalTime)
+//    }
     
     func removeAudio() {
         audioPlayer.removeAVPlayerEntities()
