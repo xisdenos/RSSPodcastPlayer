@@ -14,32 +14,60 @@ struct RSSEpisodeListView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack {
+                VStack(alignment: .center) {
                     Text(podcast.title)
                         .font(.largeTitle)
-                        .foregroundColor(.green)
-                        .padding()
+                        .foregroundColor(Color.accentColor)
+                        .padding(.top)
                     
                     AsyncImageGetter(url: podcast.image.url.stringToURL())
-                    
-                    Text(podcast.description)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding()
                     
                     HStack {
                         Text("Author" + ": ")
                             .font(.title3)
-                            .foregroundColor(.green)
+                            .foregroundColor(Color.accentColor)
                         Text(podcast.author)
                             .font(.title3)
                             .foregroundColor(.white)
                     }
                     .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text(podcast.description)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                    
+                    episodesList
                 }
+                .padding(.horizontal)
             }
-        }.background(Color.blue)
+            .background(Color.primaryBlue)
+        }
+    }
+}
+
+extension RSSEpisodeListView {
+    
+    private var episodesList: some View {
+        Group {
+            if podcast.episodes.isEmpty {
+                Text("No episodes found")
+                    .foregroundColor(.gray)
+                    .fontWeight(.semibold)
+                    .padding()
+            } else {
+                LazyVStack {
+                    ForEach(podcast.episodes) { episode in
+                        NavigationLink(destination: RSSPlayerViewFactory.build(episode: episode, podcast: podcast)) {
+                            EpisodeRowCell(episode: episode)
+                                .padding(.vertical, 4)
+                        }
+                        .listRowSeparator(.hidden)
+                    }
+                }
+                .padding(.top, 8)
+            }
+        }
     }
 }

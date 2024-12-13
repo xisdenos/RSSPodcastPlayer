@@ -26,20 +26,20 @@ struct LoadedPodcastView: View {
                     Text(podcast.description)
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primaryTextColor)
                         .padding(.top)
                     
                     NavigationLink(destination: RSSEpisodeListView(podcast: podcast)) {
-                        Text("Episodios")
+                        Text("Episódios")
                             .padding()
-                            .background(Color.green)
+                            .background(Color.primaryBlue)
                             .foregroundColor(.white)
                             .cornerRadius(8)
                            
                     }
                 }
                 .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]), startPoint: .top, endPoint: .bottom))
+                .background(Color.accentColor)
                 .cornerRadius(15)
                 .padding(.horizontal)
             }

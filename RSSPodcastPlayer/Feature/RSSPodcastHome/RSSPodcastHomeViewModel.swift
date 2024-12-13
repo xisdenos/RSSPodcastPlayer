@@ -16,6 +16,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
     @Published var showHistory = false
     @Published var isLoading = false
     @Published var podCast: Podcast?
+    @Published var cachedPodcastList: [CachedPodcast] = []
     @Published var errorMessage: String?
     
     // MARK: - Dependencies
@@ -30,6 +31,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
         self.rssPodcastUseCase = rssPodcastUseCase
         self.userDefaultsManager = userDefaultsManager
         retrieveSavedUrls()
+        
     }
     
     // MARK: - Public funcs
@@ -39,12 +41,12 @@ class RSSPodcastHomeViewModel: ObservableObject {
     }
     
     func retrieveSavedUrls() {
-        urlStringList = userDefaultsManager.retrievePodcastUrls(key: "SavedUrls")
+        cachedPodcastList = userDefaultsManager.fetchCachedPodcasts(key: "SavedPodcasts")
     }
     
     func clearSavedURls() {
-        userDefaultsManager.clearPodcastUrls(key: "SavedUrls")
-        urlStringList.removeAll()
+        userDefaultsManager.clearPodcastUrls(key: "SavedPodcasts")
+        cachedPodcastList.removeAll()
     }
     
     func loadParsedPodcast() {
@@ -52,6 +54,7 @@ class RSSPodcastHomeViewModel: ObservableObject {
         guard let urlPath = URL(string: url) else { return }
         rssPodcastUseCase.execute(url: urlPath) { podcast in
             self.userDefaultsManager.savePodcastUrl(url: urlPath, key: "SavedUrls")
+            self.userDefaultsManager.saveCachedPodcast(key: "SavedPodcasts", podcast: CachedPodcast(title: podcast.title, imageURL: podcast.image.url, url: self.url))
             DispatchQueue.main.async {
                 self.isLoading = false
                 self.podCast = podcast
