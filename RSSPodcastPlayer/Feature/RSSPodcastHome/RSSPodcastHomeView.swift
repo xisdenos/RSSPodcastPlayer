@@ -27,10 +27,6 @@ struct RSSPodcastHomeView: View {
                         }
                         .padding(.horizontal)
                         
-                        if !viewModel.cachedPodcastList.isEmpty {
-                            HistoryView(viewModel: viewModel)
-                        }
-                        
                         if viewModel.isLoading {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .green))
@@ -38,6 +34,10 @@ struct RSSPodcastHomeView: View {
                         }
                         
                         LoadedPodcastView(podcast: $viewModel.podCast)
+                        
+                        if !viewModel.cachedPodcastList.isEmpty {
+                            HistoryView(viewModel: viewModel)
+                        }
                         
                     }
                     .padding()
