@@ -27,7 +27,7 @@ struct RSSPodcastHomeView: View {
                         }
                         .padding(.horizontal)
                         
-                        if !viewModel.urlStringList.isEmpty {
+                        if !viewModel.cachedPodcastList.isEmpty {
                             HistoryView(viewModel: viewModel)
                         }
                         

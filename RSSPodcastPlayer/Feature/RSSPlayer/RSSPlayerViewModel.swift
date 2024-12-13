@@ -12,13 +12,16 @@ class RSSPlayerViewModel: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
+    // MARK: - Public variables
+    
     @Published var audioPlayer: AudioPlayer
     @Published var podcast: Podcast
     @Published var episode: Episode
-    @Published var formattedTotalTime: Double = 0
     @Published var isPaused: Bool = true
     @Published var currentTime: Double = 0
     @Published var audioErrorFeedbackMessage: String?
+    
+    // MARK: - Init
     
     init(podcast: Podcast, episode: Episode) {
         self.podcast = podcast
@@ -38,22 +41,7 @@ class RSSPlayerViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-//    private func currentTimeFormmater() {
-//        if let timeFormatted = episode.duration.stringToSeconds() {
-//            formattedTotalTime = timeFormatted
-//            return
-//        }
-//
-//        if let timeFormatted = podcast.description.stringToDouble() {
-//            formattedTotalTime = timeFormatted
-//            return
-//        }
-//        print(formattedTotalTime)
-//    }
-    
-    func removeAudio() {
-        audioPlayer.removeAVPlayerEntities()
-    }
+    // MARK: - Private funcs
     
     private func errorCaller(error: AudioPlayerError) {
         audioErrorFeedbackMessage = error.description
@@ -66,6 +54,10 @@ class RSSPlayerViewModel: ObservableObject {
     
     private func changeEpisode(episode: Episode) {
         self.episode = episode
+    }
+    
+    func removeAudio() {
+        audioPlayer.removeAVPlayerEntities()
     }
     
     func play() {

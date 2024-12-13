@@ -11,7 +11,7 @@ protocol UrlLoaderUserDefaultProtocol {
     func savePodcastUrl(url: URL, key: String)
     func retrievePodcastUrls(key: String) -> [String]
     func clearPodcastUrls(key: String)
-    func saveCachedPodcast(key: String, podcast: CachedPodcast)
+    func saveCachedPodcast(key: String, podcast: CachedPodcast) -> UserDefaultError?
     func fetchCachedPodcasts(key: String) -> [CachedPodcast]
 }
 
@@ -46,7 +46,7 @@ class UserDefaultsManager: UrlLoaderUserDefaultProtocol {
 
 extension UserDefaultsManager {
     
-    func saveCachedPodcast(key: String, podcast: CachedPodcast) {
+    func saveCachedPodcast(key: String, podcast: CachedPodcast) -> UserDefaultError? {
         do {
             let data = try JSONEncoder().encode(podcast)
             userDefaults.set(data, forKey: podcast.url)
@@ -60,9 +60,11 @@ extension UserDefaultsManager {
                 userDefaults.setValue([podcast.url], forKey: key)
             }
         } catch {
-            print("Failed to encode podcast: \(error)")
+            return UserDefaultError.encodeError
         }
+        return nil
     }
+    
     func fetchCachedPodcasts(key: String) -> [CachedPodcast] {
         var podcasts: [CachedPodcast] = []
 

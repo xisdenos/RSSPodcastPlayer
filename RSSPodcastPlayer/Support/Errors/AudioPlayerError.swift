@@ -1,8 +1,8 @@
 //
-//  AudioPlayerError.swift
+//  UserDefaultsError.swift
 //  RSSPodcastPlayer
 //
-//  Created by Lucas Pinto on 11/12/24.
+//  Created by Lucas Pinto on 13/12/24.
 //
 
 import Foundation

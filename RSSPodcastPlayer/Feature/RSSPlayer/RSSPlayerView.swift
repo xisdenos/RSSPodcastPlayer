@@ -29,6 +29,16 @@ struct RSSPlayerView: View {
         .onDisappear {
             viewModel.removeAudio()
         }
+        
+        .alert(isPresented: .constant(viewModel.audioErrorFeedbackMessage != nil)) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.audioErrorFeedbackMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.audioErrorFeedbackMessage = nil
+                }
+            )
+        }
     }
 }
 

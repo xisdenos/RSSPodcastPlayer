@@ -36,23 +36,17 @@ class RSSPodcastHomeViewModel: ObservableObject {
     
     // MARK: - Public funcs
     
-    func saveCachedPodcast() {
-        
-    }
-    
     func checkShowHistory() -> Bool {
         return showHistory && !urlStringList.isEmpty
     }
     
     func retrieveSavedUrls() {
-        urlStringList = userDefaultsManager.retrievePodcastUrls(key: "SavedUrls")
         cachedPodcastList = userDefaultsManager.fetchCachedPodcasts(key: "SavedPodcasts")
-        print(cachedPodcastList)
     }
     
     func clearSavedURls() {
-        userDefaultsManager.clearPodcastUrls(key: "SavedUrls")
-        urlStringList.removeAll()
+        userDefaultsManager.clearPodcastUrls(key: "SavedPodcasts")
+        cachedPodcastList.removeAll()
     }
     
     func loadParsedPodcast() {
@@ -75,4 +69,3 @@ class RSSPodcastHomeViewModel: ObservableObject {
 
     }
 }
-

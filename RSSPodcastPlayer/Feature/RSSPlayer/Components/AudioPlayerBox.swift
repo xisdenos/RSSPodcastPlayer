@@ -27,7 +27,7 @@ struct AudioPlayerBox: View {
                     .accentColor(.accentColor)
                     .padding([.leading, .trailing])
                     
-                    Text(viewModel.episode.duration)
+                    Text(viewModel.episode.duration.toFormattedTime() ?? viewModel.episode.duration)
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
