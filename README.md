@@ -14,6 +14,10 @@ RSSPodcast Streamer is a application designed for streaming of podcasts via RSS 
 - Xcode
 - SPM
 
+### Dependencies
+- SwiftLint
+- XMLCore
+
 ### Steps
 1. Clone the repository:
    ```bash
