@@ -27,10 +27,14 @@ struct Episode: Decodable, Identifiable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = UUID()
-        self.title = try container.decode(String.self, forKey: .title)
+        self.title = try  container.decode(String.self, forKey: .title)
         self.description = try container.decode(String.self, forKey: .description)
         self.pubDate = try container.decode(Date.self, forKey: .pubDate)
-        self.duration = try container.decode(String.self, forKey: .duration)
+        do {
+            self.duration = try container.decode(String.self, forKey: .duration)
+        } catch {
+            self.duration = ""
+        }
         self.enclosure = try container.decodeIfPresent(Enclosure.self, forKey: .enclosure)
     }
     

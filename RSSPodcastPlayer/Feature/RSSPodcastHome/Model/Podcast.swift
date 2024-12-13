@@ -13,6 +13,7 @@ struct Podcast: Decodable, Identifiable {
     let description: String
     let author: String
     let image: RSSImage
+    let gender: String?
     let episodes: [Episode]
 
     enum CodingKeys: String, CodingKey {
@@ -25,6 +26,7 @@ struct Podcast: Decodable, Identifiable {
         case author = "itunes:author"
         case image
         case description
+        case gender
         case episodes = "item"
     }
 
@@ -37,6 +39,7 @@ struct Podcast: Decodable, Identifiable {
         self.description = try channel.decode(String.self, forKey: .description)
         self.author = try channel.decode(String.self, forKey: .author)
         self.image = try channel.decode(RSSImage.self, forKey: .image)
+        self.gender = try? channel.decode(String.self, forKey: .gender)
         self.episodes = try channel.decode([Episode].self, forKey: .episodes)
     }
     
@@ -45,12 +48,14 @@ struct Podcast: Decodable, Identifiable {
              description: String,
              author: String,
              image: RSSImage,
+             gender: String? = nil,
              episodes: [Episode]) {
             self.id = id
             self.title = title
             self.description = description
             self.author = author
             self.image = image
+            self.gender = gender
             self.episodes = episodes
         }
 }

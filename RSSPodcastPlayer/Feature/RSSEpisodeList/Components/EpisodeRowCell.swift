@@ -25,7 +25,7 @@ struct EpisodeRowCell: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
-                Text(episode.duration)
+                Text(episode.duration.toFormattedTime() ?? episode.duration)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

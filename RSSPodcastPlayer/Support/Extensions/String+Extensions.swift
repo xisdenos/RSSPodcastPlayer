@@ -20,7 +20,6 @@ extension String {
               let seconds = Double(components[2]) else {
             return nil
         }
-        
         return (hours * 3600) + (minutes * 60) + seconds
     }
     
@@ -33,4 +32,12 @@ extension String {
            return self
        }
    }
+    
+    func toFormattedTime() -> String? {
+            guard let timeInSeconds = Double(self) else { return nil }
+            let hours = Int(timeInSeconds) / 3600
+            let minutes = (Int(timeInSeconds) % 3600) / 60
+            let seconds = Int(timeInSeconds) % 60
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
 }
