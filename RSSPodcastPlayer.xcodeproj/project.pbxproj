@@ -39,16 +39,6 @@
 			path = RSSPodcastPlayer;
 			sourceTree = "<group>";
 		};
-		06F614ED2D04D2C800D12444 /* RSSPodcastPlayerTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RSSPodcastPlayerTests;
-			sourceTree = "<group>";
-		};
-		06F614F72D04D2C800D12444 /* RSSPodcastPlayerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RSSPodcastPlayerUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				06F614DC2D04D2C700D12444 /* RSSPodcastPlayer */,
-				06F614ED2D04D2C800D12444 /* RSSPodcastPlayerTests */,
-				06F614F72D04D2C800D12444 /* RSSPodcastPlayerUITests */,
 				06EFA5E22D07C412009B40ED /* Frameworks */,
 				06F614DB2D04D2C700D12444 /* Products */,
 			);
@@ -146,9 +134,6 @@
 			dependencies = (
 				06F614EC2D04D2C800D12444 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				06F614ED2D04D2C800D12444 /* RSSPodcastPlayerTests */,
-			);
 			name = RSSPodcastPlayerTests;
 			packageProductDependencies = (
 			);
@@ -168,9 +153,6 @@
 			);
 			dependencies = (
 				06F614F62D04D2C800D12444 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				06F614F72D04D2C800D12444 /* RSSPodcastPlayerUITests */,
 			);
 			name = RSSPodcastPlayerUITests;
 			packageProductDependencies = (
